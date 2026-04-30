@@ -1,4 +1,4 @@
-# Fayda demo service — token exchange (monorepo)
+# Fayda demo service — token exchange
 
 This folder groups two demo services under one parent directory:
 
