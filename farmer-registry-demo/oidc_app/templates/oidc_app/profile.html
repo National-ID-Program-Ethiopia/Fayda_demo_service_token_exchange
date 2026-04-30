@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Bank - Profile Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .back-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .profile-header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .profile-header h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .profile-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .form-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .section-title {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            font-size: 1.2rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-upload input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .file-upload-label {
+            display: block;
+            padding: 12px;
+            border: 2px dashed #1e3c72;
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+        }
+
+        .file-upload-label:hover {
+            background: #e3f2fd;
+            border-color: #2a5298;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: #d4edda;
+            color: #155724;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: flex-end;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .btn-secondary {
+            background: #f8f9fa;
+            color: #1e3c72;
+            border: 2px solid #1e3c72;
+        }
+
+        .btn-secondary:hover {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .kyc-section {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%);
+            border: 2px solid #28a745;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .kyc-section .section-title {
+            color: #28a745;
+        }
+
+        .security-notice {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #856404;
+        }
+
+        .security-notice i {
+            margin-right: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1>Capital Bank</h1>
+            </div>
+            <div style="display: flex; gap: 10px;">
+                <a href="/dashboard" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Dashboard
+                </a>
+                <a href="/logout/" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="profile-header">
+            {% if user_picture %}
+            <div class="profile-avatar">
+                <img src="{{ user_picture }}" alt="Profile Picture" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            {% else %}
+            <div class="profile-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            {% endif %}
+            <h2>{{ name }}</h2>
+            <p>Manage your personal information and account details</p>
+        </div>
+
+        <form id="profileForm" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            
+            <!-- Fayda Verified Data Section -->
+            <div class="form-section">
+                <h3 class="section-title">
+                    <i class="fas fa-shield-alt"></i>
+                    Fayda Verified Information
+                    <span class="verified-badge">
+                        <i class="fas fa-check-circle"></i>
+                        Verified
+                    </span>
+                </h3>
+                <div class="security-notice">
+                    <i class="fas fa-info-circle"></i>
+                    This information has been verified through Fayda and cannot be modified directly.
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" value="{{ name }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" value="{{ email }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" value="{{ phone }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <input type="text" id="gender" name="gender" value="{{ gender }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthdate">Date of Birth</label>
+                        <input type="text" id="birthdate" name="birthdate" value="{{ birthdate }}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="nationality">Nationality</label>
+                        <input type="text" id="nationality" name="nationality" value="{{ residence_status }}" readonly>
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="address">Address</label>
+                        <textarea id="address" name="address" readonly>{{ address }}</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional KYC Fields Section -->
+            <div class="kyc-section">
+                <h3 class="section-title">
+                    <i class="fas fa-user-check"></i>
+                    Additional KYC Information
+                </h3>
+                <p style="margin-bottom: 20px; color: #666;">Please provide additional information required for banking services.</p>
+                
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="mothers_name">Mother's Name *</label>
+                        <input type="text" id="mothers_name" name="mothers_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="fathers_name">Father's Name *</label>
+                        <input type="text" id="fathers_name" name="fathers_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="occupation">Occupation *</label>
+                        <select id="occupation" name="occupation" required>
+                            <option value="">Select Occupation</option>
+                            <option value="government_employee">Government Employee</option>
+                            <option value="private_employee">Private Employee</option>
+                            <option value="business_owner">Business Owner</option>
+                            <option value="freelancer">Freelancer</option>
+                            <option value="student">Student</option>
+                            <option value="retired">Retired</option>
+                            <option value="unemployed">Unemployed</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="employer">Employer/Company Name</label>
+                        <input type="text" id="employer" name="employer">
+                    </div>
+                    <div class="form-group">
+                        <label for="monthly_income">Monthly Income (ETB)</label>
+                        <input type="number" id="monthly_income" name="monthly_income" min="0">
+                    </div>
+                    <div class="form-group">
+                        <label for="marital_status">Marital Status</label>
+                        <select id="marital_status" name="marital_status">
+                            <option value="">Select Status</option>
+                            <option value="single">Single</option>
+                            <option value="married">Married</option>
+                            <option value="divorced">Divorced</option>
+                            <option value="widowed">Widowed</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="emergency_contact">Emergency Contact Name</label>
+                        <input type="text" id="emergency_contact" name="emergency_contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="emergency_phone">Emergency Contact Phone</label>
+                        <input type="tel" id="emergency_phone" name="emergency_phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="signature_upload">Digital Signature Upload *</label>
+                        <div class="file-upload">
+                            <input type="file" id="signature_upload" name="signature_upload" accept="image/*,.pdf" required>
+                            <label for="signature_upload" class="file-upload-label">
+                                <i class="fas fa-upload"></i>
+                                Click to upload signature (JPG, PNG, or PDF)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_document_upload">ID Document Upload *</label>
+                        <div class="file-upload">
+                            <input type="file" id="id_document_upload" name="id_document_upload" accept="image/*,.pdf" required>
+                            <label for="id_document_upload" class="file-upload-label">
+                                <i class="fas fa-upload"></i>
+                                Click to upload ID document (JPG, PNG, or PDF)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="proof_of_address">Proof of Address Upload</label>
+                        <div class="file-upload">
+                            <input type="file" id="proof_of_address" name="proof_of_address" accept="image/*,.pdf">
+                            <label for="proof_of_address" class="file-upload-label">
+                                <i class="fas fa-upload"></i>
+                                Click to upload proof of address (JPG, PNG, or PDF)
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="banking_purpose">Primary Banking Purpose</label>
+                        <select id="banking_purpose" name="banking_purpose">
+                            <option value="">Select Purpose</option>
+                            <option value="savings">Savings</option>
+                            <option value="business">Business</option>
+                            <option value="investment">Investment</option>
+                            <option value="loan">Loan Services</option>
+                            <option value="international">International Transactions</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="grid-column: 1 / -1;">
+                        <label for="additional_notes">Additional Information</label>
+                        <textarea id="additional_notes" name="additional_notes" placeholder="Any additional information you'd like to provide..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-secondary" onclick="history.back()">
+                    <i class="fas fa-times"></i>
+                    Cancel
+                </button>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i>
+                    Save Profile
+                </button>
+            </div>
+        </form>
+    </main>
+
+    <script>
+        // File upload preview
+        document.querySelectorAll('input[type="file"]').forEach(input => {
+            input.addEventListener('change', function(e) {
+                const label = this.nextElementSibling;
+                if (this.files.length > 0) {
+                    label.innerHTML = `<i class="fas fa-check"></i> ${this.files[0].name}`;
+                    label.style.background = '#d4edda';
+                    label.style.color = '#155724';
+                } else {
+                    label.innerHTML = `<i class="fas fa-upload"></i> Click to upload file`;
+                    label.style.background = '#f8f9fa';
+                    label.style.color = '#333';
+                }
+            });
+        });
+
+        // Form submission
+        document.getElementById('profileForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Show loading state
+            const submitBtn = this.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            submitBtn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                alert('Profile updated successfully!');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
+    </script>
+</body>
+</html>

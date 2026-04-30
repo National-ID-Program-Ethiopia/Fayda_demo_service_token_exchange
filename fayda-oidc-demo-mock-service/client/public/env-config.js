@@ -1,0 +1,20 @@
+window._env_ = {
+  MOCK_DEBUG_OIDC: "true",
+  MOCK_RELYING_PARTY_SERVER_URL: "http://localhost:5000",
+  RESOURCE_SERVER_URL: "http://localhost:8000",
+  AUTO_TOKEN_EXCHANGE_AFTER_LOGIN: "true",
+  AUTO_OPEN_FARMER_PORTAL_AFTER_EXCHANGE: "false",
+  ESIGNET_UI_BASE_URL: "https://esignet.oracle1.fayda.et",
+  CLIENT_ID: "ecubzg3m5_pY_SPLRfr34BCLwhhC94kddhaowbp4SRo",
+  REDIRECT_URI: "http://localhost:3000/userprofile",
+  TOKEN_EXCHANGE_TARGET_AUDIENCE: "8HUq1QEXH7rtMzQdzocDY8LKKv6Y9EnF8BJWgGes7j0",
+  TOKEN_EXCHANGE_SCOPE: "openid profile  data.read.profile",
+  ACRS: "mosip:idp:acr:generated-code mosip:idp:acr:biometrics mosip:idp:acr:static-code mosip:idp:acr:kbi",
+  DISPLAY: "page",
+  PROMPT: "consent",
+  UI_LOCALES: "en",
+  ESIGNET_UI_CONSENT_BASE_URL: "https://esignet.oracle1.fayda.et",
+  CLAIMS_USER_PROFILE:
+    "%7B%22userinfo%22:%7B%22given_name%22:%7B%22essential%22:true%7D,%22phone_number%22:%7B%22essential%22:false%7D,%22email%22:%7B%22essential%22:true%7D,%22picture%22:%7B%22essential%22:true%7D,%22gender%22:%7B%22essential%22:false%7D,%22birthdate%22:%7B%22essential%22:false%7D,%22address%22:%7B%22essential%22:false%7D%7D,%22id_token%22:%7B%7D%7D",
+  SCOPE_USER_PROFILE: "openid profile resident-service",
+};

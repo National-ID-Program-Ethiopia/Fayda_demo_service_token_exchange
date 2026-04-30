@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Bank - Dashboard</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .welcome-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .welcome-section h2 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .welcome-section p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .dashboard-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: #1e3c72;
+        }
+
+        .card-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .card-button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .card-button.primary {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+        }
+
+        .card-button.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+        }
+
+        .card-button.secondary {
+            background: #f8f9fa;
+            color: #1e3c72;
+            border: 2px solid #1e3c72;
+        }
+
+        .card-button.secondary:hover {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .quick-actions {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .quick-actions h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .action-btn {
+            padding: 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 10px;
+            background: white;
+            color: #1e3c72;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .action-btn:hover {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 50px;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1>Capital Bank</h1>
+            </div>
+            <div class="user-info">
+                {% if user_picture %}
+                <div class="user-avatar">
+                    <img src="{{ user_picture }}" alt="Profile Picture" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+                </div>
+                {% else %}
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                {% endif %}
+                <div>
+                    <div style="font-weight: 600;">{{ name }}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Account Holder</div>
+                </div>
+                <a href="/logout/" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="welcome-section">
+            <h2>Welcome back, {{ name }}!</h2>
+            <p>Manage your finances with confidence. Your secure banking dashboard is ready.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            <div class="dashboard-card" onclick="location.href='/account-verification'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #28a745, #20c997);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="card-title">Account Verification</div>
+                </div>
+                <div class="card-description">
+                    Check your account verification status and complete any pending verification steps.
+                </div>
+                <button class="card-button primary">Check Status</button>
+            </div>
+
+            <div class="dashboard-card" onclick="location.href='/loan-eligibility'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #ff6b35, #f7931e);">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <div class="card-title">Loan Eligibility</div>
+                </div>
+                <div class="card-description">
+                    Check if you're eligible for personal loans, home loans, or business financing.
+                </div>
+                <button class="card-button primary">Check Eligibility</button>
+            </div>
+
+            <div class="dashboard-card" onclick="location.href='/account-balance'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #17a2b8, #6f42c1);">
+                        <i class="fas fa-wallet"></i>
+                    </div>
+                    <div class="card-title">Account Balance</div>
+                </div>
+                <div class="card-description">
+                    View your current account balance and available funds across all accounts.
+                </div>
+                <button class="card-button primary">View Balance</button>
+            </div>
+
+            <div class="dashboard-card" onclick="location.href='/transactions'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #6c757d, #495057);">
+                        <i class="fas fa-history"></i>
+                    </div>
+                    <div class="card-title">Recent Transactions</div>
+                </div>
+                <div class="card-description">
+                    Review your recent transactions and download statements for your records.
+                </div>
+                <button class="card-button primary">View Transactions</button>
+            </div>
+
+            <div class="dashboard-card" onclick="location.href='/profile'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #e83e8c, #fd7e14);">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                    <div class="card-title">Profile Management</div>
+                </div>
+                <div class="card-description">
+                    Update your personal information and manage your account preferences.
+                </div>
+                <button class="card-button primary">Manage Profile</button>
+            </div>
+
+            <div class="dashboard-card" onclick="location.href='/exchange-rates'">
+                <div class="card-header">
+                    <div class="card-icon" style="background: linear-gradient(45deg, #20c997, #17a2b8);">
+                        <i class="fas fa-exchange-alt"></i>
+                    </div>
+                    <div class="card-title">Exchange Rates</div>
+                </div>
+                <div class="card-description">
+                    View current exchange rates for major currencies to Ethiopian Birr.
+                </div>
+                <button class="card-button primary">View Rates</button>
+            </div>
+        </div>
+
+        <div class="quick-actions">
+            <h3>Quick Actions</h3>
+            <div class="action-buttons">
+                <a href="/coming-soon/" class="action-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Transfer Money
+                </a>
+                <a href="/coming-soon/" class="action-btn">
+                    <i class="fas fa-receipt"></i>
+                    Pay Bills
+                </a>
+                <a href="/coming-soon/" class="action-btn">
+                    <i class="fas fa-credit-card"></i>
+                    Card Management
+                </a>
+                <a href="/coming-soon/" class="action-btn">
+                    <i class="fas fa-headset"></i>
+                    Customer Support
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Capital Bank. All Rights Reserved. | Secure Banking with 256-bit Encryption</p>
+    </footer>
+</body>
+</html>

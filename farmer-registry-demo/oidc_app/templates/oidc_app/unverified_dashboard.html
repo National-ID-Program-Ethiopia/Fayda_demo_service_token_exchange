@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capital Bank - Account Verification Required</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 1rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .main-content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        .verification-notice {
+            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+            border: 2px solid #ffc107;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .verification-icon {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .verification-notice h2 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 2rem;
+        }
+
+        .verification-notice p {
+            color: #856404;
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+        }
+
+        .verification-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .verification-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+            color: white;
+            text-decoration: none;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            text-align: center;
+            opacity: 0.6;
+            position: relative;
+        }
+
+        .feature-card::after {
+            content: 'Verification Required';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffc107;
+            color: #856404;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .feature-icon.verification {
+            background: linear-gradient(45deg, #28a745, #20c997);
+        }
+
+        .feature-icon.balance {
+            background: linear-gradient(45deg, #17a2b8, #6f42c1);
+        }
+
+        .feature-icon.loan {
+            background: linear-gradient(45deg, #ff6b35, #f7931e);
+        }
+
+        .feature-icon.transactions {
+            background: linear-gradient(45deg, #6c757d, #495057);
+        }
+
+        .feature-icon.profile {
+            background: linear-gradient(45deg, #e83e8c, #fd7e14);
+        }
+
+        .feature-icon.rates {
+            background: linear-gradient(45deg, #20c997, #17a2b8);
+        }
+
+        .feature-card h3 {
+            color: #1e3c72;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .info-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+
+        .info-section h3 {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            padding: 10px 0;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-list li i {
+            color: #28a745;
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-university"></i>
+                <h1>Farmer registry demo</h1>
+            </div>
+            <div class="user-info">
+                <div class="user-avatar">
+                    <i class="fas fa-user"></i>
+                </div>
+                <div>
+                    <div style="font-weight: 600;">{{ user_name }}</div>
+                    <div style="font-size: 0.9rem; opacity: 0.8;">Unverified Account</div>
+                </div>
+                <a href="/logout/" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="verification-notice">
+            <div class="verification-icon">
+                <i class="fas fa-shield-exclamation"></i>
+            </div>
+            <h2>Account Verification Required</h2>
+            <p>To access all banking features, please verify your identity with Fayda</p>
+            {% if auth_url %}
+            <a href="{{ auth_url }}" class="verification-btn">
+                <i class="fas fa-id-card"></i>
+                Verify with Fayda
+            </a>
+            {% else %}
+            <p style="opacity:0.85;margin-top:8px;">Fayda OIDC is not configured on this deployment.</p>
+            <a href="/farmer/" class="verification-btn" style="margin-top:12px;">
+                <i class="fas fa-seedling"></i>
+                Farmer portal
+            </a>
+            {% endif %}
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon verification">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h3>Account Verification</h3>
+                <p>Complete your identity verification to access all features</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon balance">
+                    <i class="fas fa-wallet"></i>
+                </div>
+                <h3>Account Balance</h3>
+                <p>View your account balances and financial overview</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon loan">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Loan Eligibility</h3>
+                <p>Check your eligibility for various loan products</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon transactions">
+                    <i class="fas fa-history"></i>
+                </div>
+                <h3>Transactions</h3>
+                <p>Review your transaction history and statements</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon profile">
+                    <i class="fas fa-user-edit"></i>
+                </div>
+                <h3>Profile Management</h3>
+                <p>Update your personal information and preferences</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon rates">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <h3>Exchange Rates</h3>
+                <p>View current exchange rates and currency converter</p>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <h3>
+                <i class="fas fa-info-circle"></i>
+                Why Verification is Required
+            </h3>
+            <ul class="info-list">
+                <li><i class="fas fa-check"></i> Enhanced security for your banking activities</li>
+                <li><i class="fas fa-check"></i> Compliance with banking regulations</li>
+                <li><i class="fas fa-check"></i> Access to all premium banking features</li>
+                <li><i class="fas fa-check"></i> Secure identity verification through Fayda</li>
+                <li><i class="fas fa-check"></i> Protection against fraud and unauthorized access</li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
